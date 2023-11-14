@@ -90,7 +90,7 @@ const Sidebar = () => {
           priority
         />
         <div className={styles.userDetails}>
-          <span className={styles.username}>Jhon deo</span>
+          <span className={styles.username}>Ayra anam</span>
           <span className={styles.userTitle}>Administrator</span>
         </div>
       </div>
