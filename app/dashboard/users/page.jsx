@@ -4,7 +4,7 @@ import styles from "@/app/ui/dashboard/users/users.module.css";
 import Image from "next/image";
 import Link from "next/link";
 
-const UsersPage = () => {
+const UsersPage = async () => {
   return (
     <div className={styles.container}>
       <div className={styles.top}>
