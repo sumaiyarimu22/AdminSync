@@ -3,8 +3,13 @@ import mongoose from "mongoose";
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  await mongoose.connect(process.env.MONGODB_URI);
-  const data = await User.find();
-  console.log(data);
-  return NextResponse.json({ result: true });
+  let data = [];
+  try {
+    await mongoose.connect(process.env.MONGODB_URI);
+    data = await User.find();
+  } catch (error) {
+    throw new Error("data fetch failed");
+  }
+
+  return NextResponse.json(data);
 }
