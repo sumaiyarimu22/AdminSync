@@ -1,6 +1,7 @@
 .container {
   position: sticky;
   top: 40px;
+  min-height: 100vh;
 }
 .user {
   display: flex;

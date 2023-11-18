@@ -14,7 +14,13 @@ export const fetchData = async () => {
   return data;
 };
 
-export async function GET() {
+export async function GET(request) {
   const data = await fetchData();
-  return NextResponse.json(data);
+  const { searchParams } = new URL(request.url);
+  const query = searchParams.get("query");
+
+  const filteredUser = data.filter((user) => {
+    return user.username.toLowerCase().includes(query.toLocaleLowerCase());
+  });
+  return NextResponse.json(filteredUser);
 }

@@ -10,8 +10,6 @@ import { useEffect, useState } from "react";
 
 const UsersPage = () => {
   const [users, setUsers] = useState([]);
-  const [allUsers, setAllUsers] = useState([]);
-  const [serachQuery, setSearchQueary] = useState("");
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -19,7 +17,7 @@ const UsersPage = () => {
         const response = await fetch("/api/user");
         const data = await response.json();
         setUsers(data);
-        setAllUsers(data);
+        // setAllUsers(data);
       } catch (error) {
         console.log(error);
       }
@@ -28,29 +26,12 @@ const UsersPage = () => {
     fetchUser();
   }, []);
 
-  useEffect(() => {
-    searchData(serachQuery);
-  }, [serachQuery]);
-
-  const searchData = (serachQuery) => {
-    let filteredData = users;
-    if (serachQuery) {
-      filteredData = users.filter((user) =>
-        user.username.toLowerCase().includes(serachQuery.toLowerCase())
-      );
-      setUsers(filteredData);
-    } else {
-      setUsers(allUsers);
-    }
-  };
-
   return (
     <div className={styles.container}>
       <div className={styles.top}>
         <Search
           placeholder={"Search for a user..."}
-          serachQuery={serachQuery}
-          setSearchQueary={setSearchQueary}
+          getSearchResult={(results) => setUsers(results)}
         />
         <Link href='/dashboard/users/add'>
           <button className={styles.addButton}>Add New</button>
@@ -69,7 +50,7 @@ const UsersPage = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
+          {users?.map((user) => (
             <tr key={user._id}>
               <td>
                 <div className={styles.user}>
